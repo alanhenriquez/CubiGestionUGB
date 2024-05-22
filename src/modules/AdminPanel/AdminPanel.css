@@ -1,0 +1,37 @@
+.admin-panel {
+    display: flex;
+    height: 100vh;
+    background: #e9ecef;
+  }
+  
+  .admin-nav {
+    width: 250px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+  }
+  
+  .admin-nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .admin-nav li {
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    transition: background 0.3s;
+  }
+  
+  .admin-nav li:hover {
+    background: #f8f9fa;
+  }
+  
+  .admin-content {
+    flex: 1;
+    padding: 2rem;
+    background: #f1f3f5;
+    overflow-y: auto;
+  }
+  

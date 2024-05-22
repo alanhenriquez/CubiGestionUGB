@@ -3,6 +3,8 @@ import SignUp from './modules/SignUp/SignUp';
 import Login from './modules/Login/Login';
 import UserProfile from './modules/UserProfile/UserProfile';
 import Header from './modules/Header/Header';
+import ReservationForm from './modules/ReservationForm/ReservationForm';
+import AdminPanel from './modules/AdminPanel/AdminPanel';
 
 const App = () => {
 
@@ -19,9 +21,11 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <Header user={user} onLogout={handleLogout} />
+    <div className="App">{/* 
+      <Header user={user} onLogout={handleLogout} /> */}
       <UserProfile user={user} />
+      <ReservationForm />
+      <AdminPanel></AdminPanel>
     </div>
   );
 };
