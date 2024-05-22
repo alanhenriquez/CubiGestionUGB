@@ -5,6 +5,7 @@ import UserProfile from './modules/UserProfile/UserProfile';
 import Header from './modules/Header/Header';
 import ReservationForm from './modules/ReservationForm/ReservationForm';
 import AdminPanel from './modules/AdminPanel/AdminPanel';
+import UserPanel from './modules/UserPanel/UserPanel';
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
       <UserProfile user={user} />
       <ReservationForm />
       <AdminPanel></AdminPanel>
+      <UserPanel></UserPanel>
     </div>
   );
 };
