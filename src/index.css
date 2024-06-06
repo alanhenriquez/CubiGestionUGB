@@ -12,7 +12,9 @@
 
 body {
   width: 100vw;
-  min-height: 100vh;
+  max-width: 100vw;
+  min-height: calc(100vh - 4rem);
+  max-height: calc(100vh - 4rem);
   overflow: hidden;
   overflow-y: auto;
 }

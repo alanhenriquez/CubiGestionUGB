@@ -1,4 +1,4 @@
-.cubicles-table {
+.table-container {
     background: white;
     padding: 2rem;
     border-radius: 10px;
@@ -7,24 +7,24 @@
     max-width: 600px;
   }
   
-  .cubicles-table h2 {
+  .table-container h2 {
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
     color: #333;
   }
   
-  .cubicles-table table {
+  .table-container table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .cubicles-table th, .cubicles-table td {
+  .table-container th, .table-container td {
     padding: 0.75rem;
     text-align: left;
     border: 1px solid #ddd;
   }
   
-  .cubicles-table th {
+  .table-container th {
     background-color: #f8f9fa;
   }
   

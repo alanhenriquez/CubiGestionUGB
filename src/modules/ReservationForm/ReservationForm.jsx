@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ReservationForm.css';
-import CubiclesTable from './CubiclesTable/CubiclesTable';
+import Table from '../../components/Table/Table';
 
 const ReservationForm = () => {
   const [cubicle, setCubicle] = useState('');
@@ -10,6 +10,7 @@ const ReservationForm = () => {
   const [endTime, setEndTime] = useState('');
   const [subject, setSubject] = useState('');
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Aquí puedes manejar el envío del formulario
@@ -17,11 +18,20 @@ const ReservationForm = () => {
   };
 
   // Datos de ejemplo para los cubículos disponibles
-  const cubicles = [
-    { code: 'CUB-001', name: 'Cubículo 1', capacity: 4, status: 'Disponible' },
-    { code: 'CUB-002', name: 'Cubículo 2', capacity: 2, status: 'Ocupado' },
-    { code: 'CUB-003', name: 'Cubículo 3', capacity: 6, status: 'Disponible' },
-    { code: 'CUB-004', name: 'Cubículo 4', capacity: 3, status: 'Mantenimiento' },
+  const [cubicles, setCubicles] = useState([
+    { id: 1, code: 'CUB-001', name: 'Cubículo 1', capacity: 4, status: 'Disponible' },
+    { id: 2, code: 'CUB-002', name: 'Cubículo 2', capacity: 2, status: 'Ocupado' },
+    { id: 3, code: 'CUB-003', name: 'Cubículo 3', capacity: 6, status: 'Disponible' },
+    { id: 4, code: 'CUB-004', name: 'Cubículo 4', capacity: 3, status: 'Mantenimiento' },
+    { id: 5, code: 'CUB-005', name: 'Cubículo 5', capacity: 3, status: 'Mantenimiento' },
+  ]);
+
+  const columns = [
+    { Header: 'Código del cubículo', accessor: 'code' },
+    { Header: 'Nombre del cubículo', accessor: 'name' },
+    { Header: 'Capacidad de personas', accessor: 'capacity' },
+    { Header: 'Estado', accessor: 'status' },
+    { Header: 'Campus', accessor: 'campus' },
   ];
 
   return (
@@ -72,7 +82,7 @@ const ReservationForm = () => {
         <button type="submit">Submit</button>
       </form>
 
-      <CubiclesTable cubicles={cubicles} />
+      <Table columns={columns} data={cubicles} />
     </div>
   );
 };
