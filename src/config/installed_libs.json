@@ -1,4 +1,6 @@
 {
     "material_ui": "npm install @mui/material @emotion/react @emotion/styled @mui/icons-material",
-    "chart_js": "npm install chart.js react-chartjs-2"
+    "chart_js": "npm install chart.js react-chartjs-2",
+    "prop-types": "npm install prop-types",
+    "react-router-dom": "npm install react-router-dom"
 }

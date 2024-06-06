@@ -1,21 +1,46 @@
-import React, { useState } from 'react';
-import './Login.css'; // Asegúrate de crear este archivo CSS para los estilos
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Login.css';
+import AuthContext from '../../context/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Aquí puedes manejar el envío del formulario
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    fetch('http://localhost/POST/login.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Inicio de sesión exitoso") {
+          alert(data.message);
+          login(data.token, data.user_id);
+          navigate('/profile');
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
 
   return (
     <div className="login-container">
+      <div className="login-logo">
+        <img src="src\assets\images\UGB_LOGOTIPO_HORIZONTAL.png" alt="Logo UGB" />
+      </div>
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2>bienvenido</h2>
         <input
           type="email"
           placeholder="Email"
@@ -31,9 +56,11 @@ const Login = () => {
           required
         />
         <button type="submit">Submit</button>
-        <p>
-          Don't have an account? <a href="/signup">Sign Up</a>
-        </p>
+        <div className="change-form">
+          <p>
+            Don't have an account? <Link to="/signup">Sign Up</Link>
+          </p>
+        </div>
       </form>
     </div>
   );
