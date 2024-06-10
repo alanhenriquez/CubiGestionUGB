@@ -1,22 +1,17 @@
 import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import Header from './modules/Header/Header';
-import Login from './modules/Login/Login';
-import SignUp from './modules/SignUp/SignUp';
-import UserProfile from './modules/UserProfile/UserProfile';
-import Dashboard from './modules/AdminPanel/Dashboard/Dashboard';
-import ReservationForm from './modules/ReservationForm/ReservationForm';
-import AdminPanel from './modules/AdminPanel/AdminPanel';
-import UserPanel from './modules/UserPanel/UserPanel';
 import './App.css';
 import AuthContext from './context/AuthContext';
+import Login from './modules/Login/Login';
+import SignUp from './modules/SignUp/SignUp';
+import Panel from './modules/Panel/Panel';
+import Header from './modules/Header/Header';
 
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, loading } = useContext(AuthContext);
-  const shouldShowHeader = !['/login', '/signup'].includes(location.pathname);
-
+  const shouldShowHeader = /* !['/login', '/signup'].includes(location.pathname) */ false;
   const appModulesStyle = (
     shouldShowHeader
       ? {
@@ -35,20 +30,23 @@ const App = () => {
   useEffect(() => {
     if (!loading) {
       if (user) {
-        navigate('/profile');
+        // Redirigir al perfil solo si se está en la página de inicio o de login
+        if (['/', '/login', '/signup'].includes(location.pathname)) {
+          navigate('/profile');
+        }
       } else {
-        navigate('/login');
+        if (!['/login', '/signup'].includes(location.pathname)) {
+          navigate('/login');
+        }
       }
     }
-  }, [user, loading, navigate]);
+  }, [user, loading, navigate, location.pathname]);
 
 
 
   if (loading) {
     return <div>Loading...</div>; // Mostrar un mensaje de carga mientras se recupera el estado del usuario
   }
-
-
 
   return (
     <div className="App">
@@ -58,11 +56,7 @@ const App = () => {
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/profile" element={user ? <UserProfile /> : <Navigate to="/login" />} />
-          <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-          <Route path="/reservations" element={user ? <ReservationForm /> : <Navigate to="/login" />} />
-          <Route path="/admin" element={user ? <AdminPanel /> : <Navigate to="/login" />} />
-          <Route path="/user" element={user ? <UserPanel /> : <Navigate to="/login" />} />
+          <Route path="/panel" element={user ? <Panel /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </div>

@@ -2,6 +2,12 @@
     "colors": {
         "text": {
             "primary": "#323c47"
+        },
+        "border": {
+            "primary": "#ddd"
         }
+    },
+    "units_css": {
+        "aspect_radio": ["1/1", "16/9", "4/3", "21/9"]
     }
 }
