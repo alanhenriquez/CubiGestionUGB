@@ -1,0 +1,146 @@
+.profile-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content:stretch;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.profile-container .profile-card {
+  width: 100%;
+  max-width: 35rem;
+  height: auto;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-bottom: 50rem;
+  padding: 2rem;
+}
+
+.profile-container .profile-card .c-avatar {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.profile-container .profile-card .c-avatar img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  transition: all 0.5s ease-in-out;
+}
+
+.profile-container .profile-card .c-avatar img:hover {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  aspect-ratio: 21/9;
+}
+
+.profile-container .profile-card .c-avatar input {
+  display: none;
+}
+
+.profile-container .profile-card .c-avatar label {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: rgba(132, 143, 150, 0.3);
+}
+
+.profile-container .profile-card .c-avatar label > svg {
+  width: 3rem;
+  height: 3rem;
+  fill: #ffffff;
+}
+
+.profile-container .profile-card .c-title {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-container .profile-card .c-title .profile-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.profile-container .profile-card .c-form {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: center;
+}
+
+.profile-container .profile-card .c-form .profile-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  display: block;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  user-select: none;
+}
+
+.profile-container .profile-card .c-form .profile-input.profile-bio {
+  height: auto;
+  min-height: 5rem;
+  max-height: 15rem;
+  resize: vertical;
+  user-select: none;
+}
+
+.profile-container .profile-card .profile-edit-button, .profile-container .profile-card .profile-save-button {
+  width: 100%;
+  display: block;
+  padding: 0.75rem;
+  background-color: #0f0f0f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-container .profile-card .profile-edit-button:hover {
+  transition: all 0.2s ease;
+  background-color: #131925;
+}
+
+.profile-container .profile-card .profile-save-button {
+  width: 33%;
+  background-color: #0f0f0f;
+  align-self: flex-start;
+}
+
+.profile-container .profile-card .profile-save-button:hover {
+  width: 100%;
+  background-color: #131925;
+}
