@@ -68,6 +68,7 @@ export const AuthProvider = ({ children }) => {
 
   
 
+  //Obtener datos iniciales
   useEffect(() => {
     // Recuperar la sesión del localStorage al cargar la aplicación
     const token = localStorage.getItem('token');
@@ -78,6 +79,14 @@ export const AuthProvider = ({ children }) => {
     }
     setLoading(false);
   }, []);
+
+  //Obtener tras cada cambio de credenciales los datos del perfil
+  useEffect(() => {
+    const uniqueId = localStorage.getItem('unique_id');
+    if (user) {
+      fetchUserProfile(uniqueId);  // Obtener el perfil del usuario
+    }
+  }, [user]);
 
 
 

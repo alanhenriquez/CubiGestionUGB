@@ -38,7 +38,10 @@ const Profile = () => {
       .then(response => response.json())
       .then(data => {
         if (data.code === 1) {
-          alert('Perfil actualizado exitosamente');
+          alert('Perfil actualizado exitosamente. Se recargará la página');
+          setTimeout(() => {
+            location.reload();
+          }, 3 * 1000);
         } else {
           alert('Error al actualizar el perfil');
         }
@@ -70,7 +73,7 @@ const Profile = () => {
         setAvatar(data.imageUrl);
         alert('Imagen de perfil actualizada');
       } else {
-        alert('Error al subir la imagen');
+        alert(data.message);
       }
     })
     .catch(error => {
@@ -117,7 +120,7 @@ const Profile = () => {
           )}
         </div>
         <div className="c-title">
-          <h2 className="profile-title">{email || 'Correo electrónico no disponible'}</h2>
+          <h2 className="profile-title">{email || 'Correo electrónico no disponible hasta que modifiques tu perfil'}</h2>
         </div>
         <div className="c-form">
           <label htmlFor="name-input">Nombre</label>

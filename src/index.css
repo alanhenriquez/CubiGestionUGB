@@ -1,8 +1,9 @@
 * {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   font-size: 1rem;
+  direction: ltr;
   font-synthesis: none;
   margin: 0;
   padding: 0;

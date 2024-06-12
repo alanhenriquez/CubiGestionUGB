@@ -9,30 +9,32 @@ import NotificationHistory from './optionsAdmin/NotificationHistory/Notification
 import ReservationForm from './optionsUser/ReservationForm/ReservationForm';
 import Profile from './optionsEveryone/Profile/Profile';
 import AuthContext from '../../context/AuthContext';
-import { Logout } from '@mui/icons-material';
+import { Logout, Verified } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 
 const Panel = () => {
     const [activeSection, setActiveSection] = useState('profile');
     const [isAdmin, setIsAdmin] = useState(false);
-    const { user, logout, verifyUserRole } = useContext(AuthContext);
+    const [avatar, setAvatar] = useState("");
+    const { user, logout, verifyUserRole, profile } = useContext(AuthContext);
 
     useEffect(() => {
         const checkUserRole = async () => {
-            if (user && user.uniqueId) {
+            if (user && user.uniqueId && profile) {
                 const role = await verifyUserRole(user.uniqueId);
                 setIsAdmin(role === 'admin');
+                setAvatar(profile.avatar);
             }
         };
         checkUserRole();
-    }, [user, verifyUserRole]);
+    }, [user, verifyUserRole, profile]);
 
     const adminSections = [
         { name: 'profile', label: 'Perfil' },
         { name: 'dashboard', label: 'Dashboard' },
-        { name: 'users', label: 'Gestionar Usuarios' },
-        { name: 'reservations', label: 'Gestionar Reservas' },
-        { name: 'cubicles', label: 'Gestionar Cubículos' },
+        { name: 'users', label: 'Usuarios' },
+        { name: 'reservations', label: 'Cubículos reservados' },
+        { name: 'cubicles', label: 'Lista de Cubículos' },
         { name: 'notifications', label: 'Crear Notificaciones' },
         { name: 'notificationHistory', label: 'Historial de Notificaciones' },
     ];
@@ -75,14 +77,18 @@ const Panel = () => {
         }
     };
 
+
+
     const sections = isAdmin ? adminSections : userSections;
+
+
 
     return (
         <div className="panel">
             <nav className="panel-nav">
                 <div className="panel-logo">
-                    <img src="src/assets/images/UGB_LOGOTIPO_BASICO.png" alt="Company Logo" />
-                    <p>Cubi-Gestión UGB</p>
+                    <Tooltip title="Universidad Gerardo Barrios"><img src="src/assets/images/UGB_LOGOTIPO_BASICO.png" alt="Company Logo" /></Tooltip>
+                    <p>Biblioteca UGB</p>
                 </div>
                 <div className="panel-options">
                     <ul>
@@ -98,7 +104,8 @@ const Panel = () => {
                     </ul>
                 </div>
                 <div className="panel-user">
-                    <img src="https://via.placeholder.com/50" alt="User Avatar" />
+                    <img src={avatar || "https://via.placeholder.com/50"} alt="User Avatar" />
+                    {isAdmin && <Tooltip title="Eres un administrador"><Verified className='badge'/></Tooltip>}
                     <Tooltip title="Cerrar sesión"><button type="button" onClick={logout}><Logout /></button></Tooltip>
                 </div>
             </nav>

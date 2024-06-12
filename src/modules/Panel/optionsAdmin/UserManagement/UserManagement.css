@@ -11,21 +11,6 @@
   color: #333;
 }
 
-.user-management table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.user-management th, .user-management td {
-  padding: 0.75rem;
-  text-align: left;
-  border: 1px solid #ddd;
-}
-
-.user-management th {
-  background-color: #f8f9fa;
-}
-
 .user-management button {
   margin-right: 0.5rem;
   padding: 0.5rem 1rem;
@@ -38,4 +23,8 @@
 
 .user-management button:hover {
   background-color: #0056b3;
+}
+
+.user-management button > * {
+  fill: #fff;
 }

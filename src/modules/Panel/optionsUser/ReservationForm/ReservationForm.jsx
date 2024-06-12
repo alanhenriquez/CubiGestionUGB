@@ -26,18 +26,25 @@ const ReservationForm = () => {
     { id: 5, code: 'CUB-005', name: 'Cubículo 5', capacity: 3, status: 'Mantenimiento' },
   ]);
 
-  const columns = [
-    { Header: 'Código del cubículo', accessor: 'code' },
-    { Header: 'Nombre del cubículo', accessor: 'name' },
-    { Header: 'Capacidad de personas', accessor: 'capacity' },
-    { Header: 'Estado', accessor: 'status' },
-    { Header: 'Campus', accessor: 'campus' },
-  ];
+  
+  const handleRowClick = (rowData) => {
+    console.log(rowData);
+  };
 
   return (
     <div className="reservation-container">
+      <div className="reservation-table">
+        <h2>Cubículos disponibles</h2>
+        <Table
+          data={cubicles}
+          editable
+          autoDetectHeaders={true}
+          onRowClick={handleRowClick}
+          resizableColumns
+        />
+      </div>
       <form className="reservation-form" onSubmit={handleSubmit}>
-        <h2>Make a Reservation</h2>
+        <h2>Reserva tu cubículo</h2>
         <input
           type="text"
           placeholder="Cubículo seleccionado"
@@ -81,8 +88,6 @@ const ReservationForm = () => {
         />
         <button type="submit">Submit</button>
       </form>
-
-      <Table columns={columns} data={cubicles} />
     </div>
   );
 };
