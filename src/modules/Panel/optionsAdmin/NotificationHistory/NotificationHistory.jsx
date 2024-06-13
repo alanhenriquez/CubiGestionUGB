@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './NotificationHistory.css';
 
 const NotificationHistory = () => {
-  const [notifications, setNotifications] = useState([
-    { id: 1, title: 'Actualización de la App', message: 'Se ha lanzado una nueva versión de la app.', date: '2024-05-21' },
-    { id: 2, title: 'Mantenimiento Programado', message: 'Habrá un mantenimiento el 23 de mayo.', date: '2024-05-20' },
-    { id: 3, title: 'Nuevo Evento', message: 'No te pierdas el próximo evento.', date: '2024-05-18' },
-  ]);
+  const [notifications, setNotifications] = useState([]);
+
+  const fetchNotifications = () => {
+    fetch('https://localdbs.com/GET/getNotifications.php', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.code === 1) {
+          setNotifications(data.notifications);
+        } else {
+          console.warn(data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
   return (
     <div className="notification-history">

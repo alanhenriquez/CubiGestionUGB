@@ -20,7 +20,6 @@ const CubicleManagement = () => {
             <th>Nombre</th>
             <th>Capacidad</th>
             <th>Estado</th>
-            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -31,10 +30,6 @@ const CubicleManagement = () => {
               <td>{cubicle.name}</td>
               <td>{cubicle.capacity}</td>
               <td>{cubicle.status}</td>
-              <td>
-                <button onClick={() => console.log(`Edit ${cubicle.id}`)}>Editar</button>
-                <button onClick={() => console.log(`Delete ${cubicle.id}`)}>Eliminar</button>
-              </td>
             </tr>
           ))}
         </tbody>

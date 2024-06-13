@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SignUp.css';
+import { message } from 'antd';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,7 @@ const SignUp = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      message.error('Passwords do not match');
       return;
     }
 
@@ -26,9 +27,9 @@ const SignUp = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
-          alert(data.message);
+          message.success(data.message);
         } else {
-          alert('Error registering user');
+          message.error('Error registering user');
         }
       })
       .catch((error) => {

@@ -3,6 +3,7 @@ import './Profile.css';
 import AuthContext from '../../../../context/AuthContext';
 import { Backup } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
+import { message } from 'antd';
 
 const Profile = () => {
   const { user, profile } = useContext(AuthContext);
@@ -38,12 +39,12 @@ const Profile = () => {
       .then(response => response.json())
       .then(data => {
         if (data.code === 1) {
-          alert('Perfil actualizado exitosamente. Se recargará la página');
+          message.success('Perfil actualizado exitosamente. Se recargará la página');
           setTimeout(() => {
             location.reload();
           }, 3 * 1000);
         } else {
-          alert('Error al actualizar el perfil');
+          message.error('Error al actualizar el perfil');
         }
       })
       .catch(error => {
@@ -71,9 +72,9 @@ const Profile = () => {
     .then(data => {
       if (data.code === 1) {
         setAvatar(data.imageUrl);
-        alert('Imagen de perfil actualizada');
+        message.success('Imagen de perfil actualizada');
       } else {
-        alert(data.message);
+        message.warning(data.message);
       }
     })
     .catch(error => {

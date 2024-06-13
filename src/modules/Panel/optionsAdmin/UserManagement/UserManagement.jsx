@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './UserManagement.css';
 import Table from '../../../../components/Table/Table';
 import { Delete } from '@mui/icons-material';
+import { message } from 'antd';
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -47,10 +48,10 @@ const UserManagement = () => {
 
           const data = await response.json();
           if (data.code === 1) {
-            alert('Usuario eliminado exitosamente');
+            message.success('Usuario eliminado exitosamente');
             fetchUsers(); // Volver a hacer fetch de todos los usuarios después de eliminar un usuario
           } else {
-            alert('Error al eliminar el usuario');
+            message.error('Error al eliminar el usuario');
             console.error('Error:', data.message);
           }
         } catch (error) {
@@ -59,7 +60,7 @@ const UserManagement = () => {
       }
 
     } else {
-      alert('Primero elige un usuario');
+      message.warning('Primero elige un usuario');
     }
     
     setUserClicked({});
@@ -81,17 +82,17 @@ const UserManagement = () => {
           const result = await response.json();
           if (result.code === 1) {
             console.log('Cambios guardados:', modifiedData);
-            alert('Cambios guardados exitosamente');
+            message.success('Cambios guardados exitosamente');
             fetchUsers(); // Volver a hacer fetch de todos los usuarios después de guardar los cambios
             return true; // Indicar que los cambios fueron guardados exitosamente
           } else {
             console.error('Error al guardar cambios:', result.message);
-            alert('Error al guardar cambios');
+            message.error('Error al guardar cambios');
             return false;
           }
         } catch (error) {
           console.error('Error al realizar la petición:', error);
-          alert('Error al realizar la petición');
+          message.error('Error al realizar la petición');
           return false;
         }
       },
