@@ -1,19 +1,39 @@
 import React, { useState } from 'react';
 import './NotificationForm.css';
+import { message } from 'antd';
 
 const NotificationForm = () => {
   const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
+  const [messageNoti, setMessageNoti] = useState('');
   const [recipients, setRecipients] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Aquí puedes manejar el envío del formulario de notificaciones
-    console.log('Notification Details:', { title, message, recipients });
-    // Reiniciar formulario después de enviar
-    setTitle('');
-    setMessage('');
-    setRecipients('');
+    
+    try {
+      const response = await fetch('https://localdbs.com/POST/saveNotification.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, message: messageNoti, recipients }),
+      });
+
+      const data = await response.json();
+      if (data.code === 1) {
+        message.success('Notificación enviada exitosamente');
+        // Reiniciar formulario después de enviar
+        setTitle('');
+        setMessageNoti('');
+        setRecipients('');
+      } else {
+        alert('Error al enviar la notificación');
+        console.error('Error:', data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al enviar la notificación');
+    }
   };
 
   return (
@@ -29,15 +49,8 @@ const NotificationForm = () => {
         />
         <textarea
           placeholder="Mensaje"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Destinatarios (separar por comas)"
-          value={recipients}
-          onChange={(e) => setRecipients(e.target.value)}
+          value={messageNoti}
+          onChange={(e) => setMessageNoti(e.target.value)}
           required
         />
         <button type="submit">Enviar Notificación</button>

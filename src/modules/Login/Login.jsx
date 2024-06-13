@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 import AuthContext from '../../context/AuthContext';
+import { message } from 'antd';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -24,11 +25,11 @@ const Login = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "Inicio de sesión exitoso") {
-          alert(data.message);
+          message.success(data.message);
           login(data.token, data.unique_id);
           navigate('/panel');
         } else {
-          alert(data.message);
+          message.warning(data.message);
         }
       })
       .catch((error) => {

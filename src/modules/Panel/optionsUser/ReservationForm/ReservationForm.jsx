@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ReservationForm.css';
 import Table from '../../../../components/Table/Table';
+import { message } from 'antd';
 
 const ReservationForm = () => {
   const [cubicle, setCubicle] = useState('');
@@ -9,35 +10,76 @@ const ReservationForm = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [subject, setSubject] = useState('');
+  const [cubicles, setCubicles] = useState([]);
 
+  useEffect(() => {
+    // Obtener los cubículos disponibles desde el backend (reemplazar con tu endpoint)
+    fetch('https://localdbs.com/GET/getAllCubicles.php')
+      .then(response => response.json())
+      .then(data => {
+        if (data.code === 1) {
+          setCubicles(data.cubicles);
+        } else {
+          console.warn(data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Aquí puedes manejar el envío del formulario
-    console.log('Reservation Details:', { cubicle, studentCode, date, startTime, endTime, subject });
+    // Enviar los datos de la reservación al backend
+    fetch('https://localdbs.com/POST/saveReservation.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cubicle, student_code: studentCode, date, start_time: startTime, end_time: endTime, subject }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.code === 1) {
+        message.success('Reservación guardada exitosamente');
+        setCubicle('');
+        setStudentCode('');
+        setDate('');
+        setStartTime('');
+        setEndTime('');
+        setSubject('');
+      } else {
+        message.error('Error al guardar la reservación');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   };
 
-  // Datos de ejemplo para los cubículos disponibles
-  const [cubicles, setCubicles] = useState([
-    { id: 1, code: 'CUB-001', name: 'Cubículo 1', capacity: 4, status: 'Disponible' },
-    { id: 2, code: 'CUB-002', name: 'Cubículo 2', capacity: 2, status: 'Ocupado' },
-    { id: 3, code: 'CUB-003', name: 'Cubículo 3', capacity: 6, status: 'Disponible' },
-    { id: 4, code: 'CUB-004', name: 'Cubículo 4', capacity: 3, status: 'Mantenimiento' },
-    { id: 5, code: 'CUB-005', name: 'Cubículo 5', capacity: 3, status: 'Mantenimiento' },
-  ]);
-
-  const columns = [
-    { Header: 'Código del cubículo', accessor: 'code' },
-    { Header: 'Nombre del cubículo', accessor: 'name' },
-    { Header: 'Capacidad de personas', accessor: 'capacity' },
-    { Header: 'Estado', accessor: 'status' },
-    { Header: 'Campus', accessor: 'campus' },
-  ];
+  const handleRowClick = (rowData) => {
+    setCubicle(rowData.code);
+  };
 
   return (
     <div className="reservation-container">
+      <div className="reservation-table">
+        <h2>Cubículos disponibles</h2>
+        <Table
+          data={[
+            { id: 1, code: 'CUB-001', name: 'Cubículo 1', capacity: 4, status: 'Disponible' },
+            { id: 2, code: 'CUB-002', name: 'Cubículo 2', capacity: 2, status: 'Ocupado' },
+            { id: 3, code: 'CUB-003', name: 'Cubículo 3', capacity: 6, status: 'Disponible' },
+            { id: 4, code: 'CUB-004', name: 'Cubículo 4', capacity: 3, status: 'Mantenimiento' },
+          ]}
+          editable={false}
+          autoDetectHeaders={true}
+          onRowClick={handleRowClick}
+          resizableColumns
+        />
+      </div>
       <form className="reservation-form" onSubmit={handleSubmit}>
-        <h2>Make a Reservation</h2>
+        <h2>Reserva tu cubículo</h2>
         <input
           type="text"
           placeholder="Cubículo seleccionado"
@@ -79,10 +121,8 @@ const ReservationForm = () => {
           onChange={(e) => setSubject(e.target.value)}
           required
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Enviar</button>
       </form>
-
-      <Table columns={columns} data={cubicles} />
     </div>
   );
 };

@@ -12,7 +12,7 @@ const Dashboard = () => {
     datasets: [
       {
         label: 'Reservas',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [1, 0, 3, 2, 0, 3],
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
@@ -26,7 +26,7 @@ const Dashboard = () => {
     datasets: [
       {
         label: 'Usuarios nuevos',
-        data: [10, 15, 9, 14, 20, 25],
+        data: [1, 1, 0, 2, 0, 3],
         fill: false,
         backgroundColor: 'rgba(153, 102, 255, 0.2)',
         borderColor: 'rgba(153, 102, 255, 1)',
